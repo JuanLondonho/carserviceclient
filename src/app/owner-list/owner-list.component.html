@@ -2,6 +2,12 @@
     <mat-card-title>Owner List</mat-card-title>
     <mat-card-content>
       <mat-list>
+        <div class="Row" style="margin-left: 2.8%;">
+            <div class="Column" > Name </div>
+            <div class="Column" style="padding-left: 1%;"> DNI </div>
+            <div class="Column" style="padding-left: 2%;"> Profession </div>  
+            <div class="Column" style="width: 10%; padding-left: 3.5%;"> Check </div>  
+        </div>
         <mat-list-item *ngFor="let owner of owners">
             <a mat-button [routerLink]="[]">
                 <div class="Row">
@@ -16,6 +22,6 @@
       </mat-list>
     </mat-card-content>
   
-    <button mat-stroked-button color="primary"  [routerLink]="[]">Add new owner</button>
+    <button mat-stroked-button color="primary"  [routerLink]="['/owner-edit']">Add new owner</button>
     <button mat-stroked-button color="primary" [routerLink]="[]">Delete</button>
   </mat-card>

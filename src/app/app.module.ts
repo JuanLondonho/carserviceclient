@@ -15,13 +15,15 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table' 
 
 import { OwnerListComponent } from './owner-list/owner-list.component';
+import { OwnerEditComponent } from './owner-edit/owner-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CarListComponent,
     CarEditComponent,
-    OwnerListComponent
+    OwnerListComponent,
+    OwnerEditComponent
     
   ],
   imports: [

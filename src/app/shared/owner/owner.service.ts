@@ -8,13 +8,24 @@ import { Observable } from 'rxjs';
 export class OwnerService {
   public API = '//thawing-chamber-47973.herokuapp.com';
   public OWNER_API =this.API + '/owners';
-
+  owners: Array<any>;
   constructor(private http: HttpClient) { 
 
   }
 
   getAll(): Observable<any> {
     return this.http.get(this.OWNER_API);
+  }
+
+  get(dni:string){
+    this.getAll().subscribe(data => {
+      this.owners = data._embedded.owners;
+      for (const x of this.owners){
+        if(dni == x.dni){
+          return x;
+        }
+      }
+    });
   }
 
   save(owner: any): Observable<any> {
