@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CarService } from '../shared/car/car.service';
 import { GiphyService } from '../shared/giphy/giphy.service';
 import { NgForm } from '@angular/forms';
+import { OwnerService } from '../shared/owner/owner.service';
 
 @Component({
   selector: 'app-car-edit',
@@ -12,12 +13,14 @@ import { NgForm } from '@angular/forms';
 })
 export class CarEditComponent implements OnInit, OnDestroy {
   car: any = {};
+  owners: any = {};
 
   sub: Subscription;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private carService: CarService,
+              private ownerService:OwnerService,
               private giphyService: GiphyService) {
   }
 
@@ -28,6 +31,7 @@ export class CarEditComponent implements OnInit, OnDestroy {
         this.carService.get(id).subscribe((car: any) => {
           if (car) {
             this.car = car;
+            this.car.ownerDni = car.ownerDni;
             this.car.href = car._links.self.href;
             this.giphyService.get(car.name).subscribe(url => car.giphyUrl = url);
           } else {
@@ -48,9 +52,34 @@ export class CarEditComponent implements OnInit, OnDestroy {
   }
 
   save(form: NgForm) {
-    this.carService.save(form).subscribe(result => {
-      this.gotoList();
-    }, error => console.error(error));
+    var ownerDni = (<HTMLInputElement>document.getElementById("ownerDni")).value;
+    console.log(ownerDni);
+    if(ownerDni != ""){
+      this.ownerService.getAll().subscribe(result => {
+        this.owners = result._embedded.owners;
+        for(var i = 0; i < this.owners.length; i++){
+          if(ownerDni.localeCompare(this.owners[i].dni) == 0){
+            this.carService.save(form).subscribe(result => {
+              this.gotoList();
+              return;
+            }, error => console.error(error));
+          }else{
+            if(i+1 == this.owners.length){
+              alert("No existe ningun propietario con ese DNI");
+            }
+          }
+          
+        }
+        
+      });
+    }else{
+      this.carService.save(form).subscribe(result => {
+        this.gotoList();
+        return;
+      }, error => console.error(error));
+    }
+    
+    
   }
 
   remove(href) {
