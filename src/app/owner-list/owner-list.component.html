@@ -9,19 +9,19 @@
             <div class="Column" style="width: 10%; padding-left: 3.5%;"> Check </div>  
         </div>
         <mat-list-item *ngFor="let owner of owners">
-            <a mat-button [routerLink]="[]">
+            <a mat-button [routerLink]="['/owner-edit', owner.dni]">
                 <div class="Row">
                     <div class="Column"> {{owner.name}} </div>
                     <div class="Column"> {{owner.dni}} </div>
                     <div class="Column"> {{owner.profession}} </div>  
                 </div>
             </a>
-            <mat-checkbox arial-checked=false id={{owner.dni}}></mat-checkbox>
+            <mat-checkbox arial-checked=false id={{owner.dni}} (click)="ownerSelected(owner._links.self.href)"></mat-checkbox>
             <mat-divider></mat-divider>
         </mat-list-item>
       </mat-list>
     </mat-card-content>
   
     <button mat-stroked-button color="primary"  [routerLink]="['/owner-edit']">Add new owner</button>
-    <button mat-stroked-button color="primary" [routerLink]="[]">Delete</button>
+    <button mat-stroked-button color="primary" (click)="removeSelected()" >Delete</button>
   </mat-card>

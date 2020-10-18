@@ -10,7 +10,8 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./owner-edit.component.css']
 })
 export class OwnerEditComponent implements OnInit {
-owner:any ={};
+owners:any ={};
+owner:any = {};
 
 sub: Subscription;
   constructor(private route: ActivatedRoute,
@@ -21,15 +22,22 @@ sub: Subscription;
     this.sub = this.route.params.subscribe(params => {
       const dni = params['dni'];
       if(dni){
-        this.owner = this.ownerService.get(dni);
-        if(this.owner){
-          this.owner.href = this.owner._link.self.href;
-        }else{
-          console.log(`Car with dni '${dni}' not found, returning to list`);
-          this.gotoList();
-        }
+        this.ownerService.getAll().subscribe((owners: any) => {
+            this.owners = owners._embedded.owners;
+            for (var i = 0; i < this.owners.length; i++){
+              if(dni.localeCompare(this.owners[i].dni) == 0){
+                this.owner = this.owners[i];
+              }
+            }
+            if(this.owner){
+              this.owner.href = this.owner._links.self.href;
+            }else{
+              console.log(`Car with id '${dni}' not found, returning to list`);
+              this.gotoList();
+            }
+        });
       }
-    })
+    });
   }
 
   gotoList() {

@@ -26,7 +26,11 @@ const routes: Routes = [
   {
     path: 'owner-edit',
     component: OwnerEditComponent
-  }
+  },
+  {
+    path: 'owner-edit/:dni',
+    component: OwnerEditComponent
+  },
 ];
 
 @NgModule({
