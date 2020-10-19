@@ -17,16 +17,8 @@ export class OwnerService {
     return this.http.get(this.OWNER_API);
   }
 
-  get(dni:string){
-    this.getAll().subscribe(data => {
-      this.owners = data._embedded.owners;
-      
-      for (var i = 0; i < this.owners.length; i++){
-        if(dni.localeCompare(this.owners[i].dni) == 0){
-          return this.owners[i];
-        }
-      }
-    });
+  get(href :string): Observable<any>{
+    return this.http.get(href);
   }
 
   save(owner: any): Observable<any> {
