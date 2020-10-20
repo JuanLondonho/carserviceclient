@@ -90,18 +90,20 @@ sub: Subscription;
   remove(href) {
     this.ownerService.get(href).subscribe(ownerDeleted => {
       this.carService.getAll().subscribe(cars => {
-        this.cars = cars._embedded.cars;
+        this.cars = cars;
         for(var i =0; i<this.cars.length; i++){
           if((ownerDeleted.dni).localeCompare(this.cars[i].ownerDni) == 0){
             this.cars[i].ownerDni = null;
             this.carService.save(this.cars[i]).subscribe(save => {
             }, error => console.error(error));
+          }if(i + 1 == this.cars.length){
+            this.ownerService.remove(href).subscribe(result => {
+              this.gotoList();
+            }, error => console.error(error));
           }
         }
       })
-      this.ownerService.remove(href).subscribe(result => {
-        this.gotoList();
-      }, error => console.error(error));
+      
     })
   }
 }

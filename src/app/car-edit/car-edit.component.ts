@@ -53,7 +53,6 @@ export class CarEditComponent implements OnInit, OnDestroy {
 
   save(form: NgForm) {
     var ownerDni = (<HTMLInputElement>document.getElementById("ownerDni")).value;
-    console.log(ownerDni);
     if(ownerDni != ""){
       this.ownerService.getAll().subscribe(result => {
         this.owners = result._embedded.owners;
@@ -61,13 +60,14 @@ export class CarEditComponent implements OnInit, OnDestroy {
           if(ownerDni.localeCompare(this.owners[i].dni) == 0){
             this.carService.save(form).subscribe(result => {
               this.gotoList();
-              return;
             }, error => console.error(error));
+            break;
           }else{
             if(i+1 == this.owners.length){
               alert("No existe ningun propietario con ese DNI");
             }
           }
+          
           
         }
         

@@ -22,6 +22,7 @@ export class CarOwnerListComponent implements OnInit {
               ) { }
 
   ngOnInit() {
+    this.ownerCarList =[];
     this.ownerService.getAll().subscribe(result => {
       this.owners = result._embedded.owners;
       this.carService.getAll().subscribe(cars => {
@@ -37,7 +38,7 @@ export class CarOwnerListComponent implements OnInit {
                     ownerDni: car.ownerDni,
                     ownerName: owner.name,
                     giphyUrl: car.giphyUrl
-                  })
+                  });
                 }
               }
             })
