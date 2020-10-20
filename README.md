@@ -1,11 +1,12 @@
-# Servicios y componentes realizados
+# Servicios y componentes realizados - Laboratorio Angular
 
 ### Servicios
 Los servicios que fueron creados para el owner fueron:
-getAll(): Obtiene todos los owners registrados en el sistema.
-get(href:String): Obtener un owner en especifico mendiante su url de referencia.
-save(owner:any): Recibe un objeto de tipo owner y verifica si el owner existe mediante su url de referencia, si existe lo actualiza y si no existe crea uno nuevo.
-remove(href:String): Recibe un url que referencia a un owner en especifico y procede a eliminarlo.
+
+* **getAll():** Obtiene todos los owners registrados en el sistema.
+* **get(href:String):** Obtener un owner en especifico mendiante su url de referencia.
+* **save(owner:any):** Recibe un objeto de tipo owner y verifica si el owner existe mediante su url de referencia, si existe lo actualiza y si no existe crea uno nuevo.
+* **remove(href:String):** Recibe un url que referencia a un owner en especifico y procede a eliminarlo.
 
 ### Componentes
 
