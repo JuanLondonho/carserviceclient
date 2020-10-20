@@ -6,10 +6,10 @@
     <mat-card-content>
         <input type="hidden" name="href" [(ngModel)]="owner.href">
         <mat-form-field style="margin-right:5%;">
-            <input matInput placeholder="Name" [(ngModel)]="owner.name" required name="name" #name>
+            <input matInput id="ownerName" placeholder="Name" [(ngModel)]="owner.name" required name="name" #name>
         </mat-form-field>
         <mat-form-field style="margin-right: 5%;">
-            <input matInput placeholder="Dni" [(ngModel)]="owner.dni" required name="dni" #dni> 
+            <input matInput id="ownerDni" placeholder="Dni" [(ngModel)]="owner.dni" required name="dni" #dni> 
         </mat-form-field>
         <mat-form-field>
           <input matInput placeholder="profession" [(ngModel)]="owner.profession" required name="profession" #profession> 

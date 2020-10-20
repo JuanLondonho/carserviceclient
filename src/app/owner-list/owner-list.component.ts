@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OwnerService } from '../shared/owner/owner.service';
+import { CarService } from '../shared/car/car.service';
 
 
 @Component({
@@ -10,8 +11,10 @@ import { OwnerService } from '../shared/owner/owner.service';
 export class OwnerListComponent implements OnInit {
   owners: Array<any>;
   selected: any = [];
+  cars: any ={};
 
-  constructor(private ownerService: OwnerService) { }
+  constructor(private ownerService: OwnerService,
+              private carService: CarService) { }
 
   ngOnInit() {
     this.ownerService.getAll().subscribe(data => {
@@ -25,12 +28,22 @@ export class OwnerListComponent implements OnInit {
     }else{
       this.selected.splice(this.selected.indexOf(url) , 1)
     }
-    console.log(this.selected);
   }
 
   removeSelected(){
     for(var i=0; i < this.selected.length; i++){
-      console.log(this.selected[i]);
+      this.ownerService.get(this.selected[i]).subscribe(ownerDeleted => {
+        this.carService.getAll().subscribe(cars =>{
+          this.cars = cars._embedded.cars;
+          for(var i =0; i<this.cars.length; i++){
+            if((ownerDeleted.dni).localeCompare(this.cars[i].ownerDni) == 0){
+              this.cars[i].ownerDni = null;
+              this.carService.save(this.cars[i]).subscribe(save => {
+              }, error => console.error(error));
+            }
+          }
+        });
+      })
       this.ownerService.remove(this.selected[i]).subscribe( result => {
         if(i == this.selected.length){
           this.selected = [];

@@ -14,6 +14,8 @@ export class OwnerEditComponent implements OnInit {
 owners:any ={};
 owner:any = {};
 cars:any = {};
+ownersValidate: Array<any>;
+
 
 sub: Subscription;
   constructor(private route: ActivatedRoute,
@@ -52,9 +54,37 @@ sub: Subscription;
   }
 
   save(form: NgForm) {
-    this.ownerService.save(form).subscribe(result => {
-      this.gotoList();
-    }, error => console.error(error));
+    var ownerDni = (<HTMLInputElement>document.getElementById("ownerDni")).value;
+    var ownerName = (<HTMLInputElement>document.getElementById("ownerName")).value;
+    console.log(ownerDni);
+    this.ownerService.getAll().subscribe(result => {
+      this.ownersValidate = result._embedded.owners;
+      if(this.ownersValidate.length == 0){
+        this.ownerService.save(form).subscribe(result => {
+          this.gotoList();
+        }, error => console.error(error));
+      }else{
+        for(var i =0; i<this.ownersValidate.length; i++){
+          if(ownerDni.localeCompare(this.ownersValidate[i].dni) == 0){
+            if(ownerName.localeCompare(this.ownersValidate[i].name) == 0){
+              this.ownerService.save(form).subscribe(result => {
+                this.gotoList();
+              }, error => console.error(error));
+            }else{
+              alert("El usauario con el dni "+ownerDni+" ya existe.");
+            }
+            return;
+          }else{
+            if(i+1 == this.ownersValidate.length){
+              this.ownerService.save(form).subscribe(result => {
+                this.gotoList();
+              }, error => console.error(error));
+            }
+          }
+        }
+      }
+    })
+    
   }
 
   remove(href) {
@@ -68,10 +98,10 @@ sub: Subscription;
             }, error => console.error(error));
           }
         }
-        this.ownerService.remove(href).subscribe(result => {
-          this.gotoList();
-        }, error => console.error(error));
       })
+      this.ownerService.remove(href).subscribe(result => {
+        this.gotoList();
+      }, error => console.error(error));
     })
   }
 }

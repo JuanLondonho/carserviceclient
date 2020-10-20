@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table'
 
 import { OwnerListComponent } from './owner-list/owner-list.component';
 import { OwnerEditComponent } from './owner-edit/owner-edit.component';
+import { CarOwnerListComponent } from './car-owner-list/car-owner-list.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { OwnerEditComponent } from './owner-edit/owner-edit.component';
     CarListComponent,
     CarEditComponent,
     OwnerListComponent,
-    OwnerEditComponent
+    OwnerEditComponent,
+    CarOwnerListComponent
     
   ],
   imports: [
