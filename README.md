@@ -1,7 +1,7 @@
 # Servicios y componentes realizados - Laboratorio Angular
 
 ### Servicios
-Los servicios que fueron creados para el owner fueron:
+Los servicios creados para la gestion del owner fueron:
 
 * **getAll():** Obtiene todos los owners registrados en el sistema.
 * **get(href:String):** Obtener un owner en especifico mendiante su url de referencia.
@@ -9,8 +9,13 @@ Los servicios que fueron creados para el owner fueron:
 * **remove(href:String):** Recibe un url que referencia a un owner en especifico y procede a eliminarlo.
 
 ### Componentes
+Los nuevos componentes que fueron añadidos al proyecto para un completo funcionamiento son:
 
+* **owner-list:** Este se encarga de listar cada uno de los propietarios que se encuentran registrados en el sistema, además ofrece la opción de volver a lista de carros, de eliminar multiples owners mendiante el componente checkbox, agregar un nuevo owner y modificar uno existente dandole click.
 
+* **ownenr-edit:** Nos permite editar las propiedades de un owner o eliminarlo directamente, ademas validad que no se pueda modificar el DNI, ya que es el identificador principal y unico, por lo tanto modificarlo no está permitido, además este mismo componente nos sirve para agregar un nuevo owner, ya que utiliza los mismos campos, sólo que vacios y sin referenciar ningun owner.
+
+* **car-owner-list:** Este componente permite listar los carros que tienen un propietario, es decir, los que tienen un dni diferente de null, entonces busca el dni asociado a ese carro, obtiene la información de ese owner y los lista. Cabe destacar que sólo los carros con owners serán listados.
 
 
 
